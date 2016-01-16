@@ -12,9 +12,9 @@
 installGitbook <- function() {
   cmd <- c('npm install gitbook-cli -g')
   if(Sys.info()['sysname'] == 'Windows') {
-	  cmd <- i
+	  cmd <- cmd 
 	} else {
-		cmd <- paste0('sudo -A ', i)
+		cmd <- paste0('sudo -A ', cmd)
 	}
 	test <- system(cmd)
 	if(test != 0) { stop(paste0("gitbook installation failed. Typically ", 
