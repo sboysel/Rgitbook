@@ -72,7 +72,7 @@ newGitbook <- function(dir) {
 		year = 2014,
 		url = "http://www.gitbook.io/")
 	write.bibtex(c(knitr = citation("knitr")[1], 
-				   knitcitations = citation("knitcitations"),
+				   # knitcitations = citation("knitcitations"),
 				   devtools = citation("devtools"),
 				   gitbook = gitbook.ref),
 				 file=file.path(dir, 'references.bib'))
