@@ -10,18 +10,14 @@
 #' 
 #' @export
 installGitbook <- function() {
-	cmds <- c('npm install gitbook -g',
-			  'npm install gitbook-pdf -g',
-			  'npm install gitbook-plugin')
-	for(i in cmds) {
-		if(Sys.info()['sysname'] == 'Windows') {
-			cmd <- i
-		} else {
-			cmd <- paste0('sudo -A ', i)
-			#test <- system(cmd, input=readline("Enter your password: "))
-		}
-		test <- system(cmd)
-		if(test != 0) { stop(paste0("gitbook installation failed. Typically ", 
+  cmd <- c('npm install gitbook-cli -g')
+  if(Sys.info()['sysname'] == 'Windows') {
+	  cmd <- i
+	} else {
+		cmd <- paste0('sudo -A ', i)
+	}
+	test <- system(cmd)
+	if(test != 0) { stop(paste0("gitbook installation failed. Typically ", 
 									"installing as root/Administrator ",
 									"from the terminal/console works:\n",
 									paste0('   ', cmds , collapse='\n'))) }		
