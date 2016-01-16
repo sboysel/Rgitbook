@@ -40,27 +40,27 @@ newGitbook <- function(dir) {
 	olddir <- setwd(dir)
 	
 	message('Writing .bookignore...')
-	f <- file('.bookignore')
+	f <- file(file.path(dir, '.bookignore'))
 	writeLines(bookignore, f)
 	close(f)
 	
 	message('Writing .gitignore...')
-	f <- file('.gitignore')
+	f <- file(file.path(dir, '.gitignore'))
 	writeLines(gitignore, f)
 	close(f)
 	
 	message('Writing README.md...')
-	f <- file('README.md')
+	f <- file(file.path(dir ,'README.md'))
 	writeLines(readme.md, f)
 	close(f)
 	
 	message('Writing SUMMARY.md...')
-	f <- file('SUMMARY.md')
+	f <- file(file.path(dir, 'SUMMARY.md'))
 	writeLines(summary.md, f)
 	close(f)
 	
 	message('Writing references.rmd...')
-	f <- file('references.Rmd')
+	f <- file(file.path(dir, 'references.Rmd'))
 	writeLines(references.rmd, f)
 	close(f)
 	
@@ -75,7 +75,7 @@ newGitbook <- function(dir) {
 				   knitcitations = citation("knitcitations"),
 				   devtools = citation("devtools"),
 				   gitbook = gitbook.ref),
-				 file='references.bib')
+				 file=file.path(dir, 'references.bib'))
 			
 	message(
 		'You can now open README.md and SUMMARY.md. Once you are done 
