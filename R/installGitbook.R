@@ -20,6 +20,6 @@ installGitbook <- function() {
 	if(test != 0) { stop(paste0("gitbook installation failed. Typically ", 
 									"installing as root/Administrator ",
 									"from the terminal/console works:\n",
-									paste0('   ', cmds , collapse='\n'))) }		
+									paste0('   ', cmd , collapse='\n'))) }		
 	invisible()
 }

@@ -12,10 +12,13 @@ Description: R package to manage Gitbook.io projects with R Markdown and
 License: GPL
 LazyLoad: yes
 VignetteBuilder: knitr
-Depends:
+Depends: 
     R (>= 3.0)
-Imports:
-    utils,knitr,knitcitations
-Suggests:
-    devtools
+Imports: 
+    utils,
+    knitr,
+    knitcitations
+Suggests: 
+    devtools,
+    testthat
 Roxygen: list(wrap=FALSE)
