@@ -1,0 +1,11 @@
+# References
+
+```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+## Uncomment to list all items in the BibTeX file.
+# for (i in names(bib)) { print(i); citep(bib[i]) }
+library(knitcitations)
+```
+
+```{r bibliography, echo=FALSE, results='asis'}
+bibliography()
+```
