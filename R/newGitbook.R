@@ -2,85 +2,68 @@
 #'
 #' This will initalize a new Gitbook in the given directory. When done, it will
 #' also change the working directory.
-#' 
+#'
 #' @param dir location of the built gitbook.
-#' 
+#'
 #' @export
-newGitbook <- function(dir) {
-	# TODO: May want to make these parameters or options
-	bookignore <- c('*.RMD','*.rmd','*.Rmd','log/','*.R','*.Rproj','.rmdbuild')
-	gitignore <- c('.Rproj.user','_book/','.rmdbuild','*.DS_Store','log/','.Rhistory')
-	summary.md <- c("# Summary","This is the summary of my book.",
-					"",
-					"* [section 1](section1/README.md)",
-					"    * [example 1](section1/example1.md)",
-					"    * [example 2](section1/example2.md)",
-					"* [section 2](section2/README.md)",
-					"    * [example 1](section2/example1.md)")
-	readme.md <- c("# Book Title",
-				   "#### by Your Name",
-				   "",
-				   "Replace with an introduction of your book.")
-	references.rmd <- c("# References",
-						"",
-						"```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}",
-						"# Uncomment to list all items in the BibTeX file.",
-						"#for(i in names(bib)) { print(i); citep(bib[i]) }",
-						"```",
-						"```{r bibliography, echo=FALSE, results='asis'}",
-						"bibliography()",
-						"```")
-	
-	if(missing(dir)) { stop('dir parameter is required.') }
-	checkForGitbook(quiet=TRUE)
-	
+newGitbook <- function(dir, example_sections = TRUE) {
+	if (missing(dir)) {
+	  stop("dir parameter is required.")
+	}
+
 	dir <- path.expand(dir)
 	message(paste0('Creating ', dir))
 	dir.create(dir, recursive=TRUE, showWarnings=FALSE)
-	olddir <- setwd(dir)
-	
+
 	message('Writing .bookignore...')
-	f <- file(file.path(dir, '.bookignore'))
-	writeLines(bookignore, f)
-	close(f)
-	
+	bookignore <- system.file("templates", ".bookignore", package = "Rgitbook")
+	file.copy(bookignore, file.path(dir, '.bookignore'))
+
 	message('Writing .gitignore...')
-	f <- file(file.path(dir, '.gitignore'))
-	writeLines(gitignore, f)
-	close(f)
-	
+	bookignore <- system.file("templates", ".gitignore", package = "Rgitbook")
+	file.copy(bookignore, file.path(dir, '.gitignore'))
+
 	message('Writing README.md...')
-	f <- file(file.path(dir ,'README.md'))
-	writeLines(readme.md, f)
-	close(f)
-	
+	bookignore <- system.file("templates", "README.md", package = "Rgitbook")
+	file.copy(bookignore, file.path(dir, 'README.md'))
+
 	message('Writing SUMMARY.md...')
-	f <- file(file.path(dir, 'SUMMARY.md'))
-	writeLines(summary.md, f)
-	close(f)
-	
-	message('Writing references.rmd...')
-	f <- file(file.path(dir, 'references.Rmd'))
-	writeLines(references.rmd, f)
-	close(f)
-	
+	bookignore <- system.file("templates", "SUMMARY.md", package = "Rgitbook")
+	file.copy(bookignore, file.path(dir, 'SUMMARY.md'))
+
+	message('Writing REFERENCES.Rmd...')
+	bookignore <- system.file("templates", "REFERENCES.Rmd", package = "Rgitbook")
+	file.copy(bookignore, file.path(dir, 'REFERENCES.Rmd'))
+
+	# Example Sections
+	if (example_sections) {
+	  sections <- file.path(dir, c("section1", "section2"))
+	  n <- 1
+	  for (s in sections) {
+	    dir.create(s, recursive = TRUE, showWarnings = FALSE)
+	    newPage(filename = "README.Rmd", dir = s, title = paste("Section", n))
+	    newPage(filename = "example1.Rmd", dir = s, title = paste("Example", 1))
+	    newPage(filename = "example2.Rmd", dir = s, title = paste("Example", 2))
+	    n <- n + 1
+	  }
+	}
+
 	message('Writing references.bib...')
-	gitbook.ref <- bibentry(
+	gitbook.ref <- utils::bibentry(
 		bibtype = "Manual",
 		title = "Gitbook: Build beautiful interactive books using GitHub/Git and Markdown",
-		author = person("Samy Pessé and Aaron O'Mullan"),
+		author = person("Samy Pess\U00E9 and Aaron O'Mullan"),
 		year = 2014,
 		url = "http://www.gitbook.io/")
-	write.bibtex(c(knitr = citation("knitr")[1], 
-				   # knitcitations = citation("knitcitations"),
-				   devtools = citation("devtools"),
-				   gitbook = gitbook.ref),
-				 file=file.path(dir, 'references.bib'))
-			
-	message(
-		'You can now open README.md and SUMMARY.md. Once you are done 
-editting SUMMARY.md, initGitbook() will create the file and folder 
-structure for your new Gitbook.')
-	message(paste0('Current working directory: ', getwd()))
+	knitcitations::write.bibtex(c(knitr = citation("knitr")[1],
+	  knitcitations = utils::citation("knitcitations"),
+		devtools = utils::citation("devtools"),
+		gitbook = gitbook.ref),
+		file = file.path(dir, "references.bib"))
+
+	message("You can now open README.md and SUMMARY.md.")
+	message(paste0("Once you are done editing SUMMARY.md, initGitbook()",
+	  "will create the file and folder structure for your new Gitbook."))
+
 	invisible()
 }
