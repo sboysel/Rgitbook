@@ -14,7 +14,9 @@ newGitbook <- function(dir, example_sections = TRUE) {
 
 	dir <- path.expand(dir)
 	message(paste0('Creating ', dir))
-	dir.create(dir, recursive=TRUE, showWarnings=FALSE)
+	if (!dir.exists(dir)) {
+	  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+	}
 
 	message('Writing .bookignore...')
 	bookignore <- system.file("templates", ".bookignore", package = "Rgitbook")
