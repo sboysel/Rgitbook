@@ -4,6 +4,7 @@
 #' also change the working directory.
 #'
 #' @param dir location of the built gitbook.
+#' @param example_sections If TRUE, sample chapters are created.
 #'
 #' @export
 newGitbook <- function(dir, example_sections = TRUE) {
@@ -46,6 +47,17 @@ newGitbook <- function(dir, example_sections = TRUE) {
 	    newPage(filename = "example2.Rmd", dir = s, title = paste("Example", 2))
 	    n <- n + 1
 	  }
+	  example_summary <- c(
+	    "",
+	    "* [Section 1](section1/README.md)",
+	    "\t* [Example 1](section1/example1.md)",
+	    "\t* [Example 2](section1/example2.md)",
+	    "* [Section 2](section2/README.md)",
+	    "\t* [Example 1](section2/example1.md)",
+	    "\t* [Example 2](section2/example2.md)"
+	    )
+	  cat(example_summary, file = file.path(dir, 'SUMMARY.md'), sep = "\n",
+	      append = TRUE)
 	}
 
 	message('Writing references.bib...')
