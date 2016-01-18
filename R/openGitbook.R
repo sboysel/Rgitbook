@@ -8,11 +8,10 @@
 #'
 #' @export
 openGitbook <- function(out.dir = getwd()) {
-  out.dir <- normalizePath(out.dir)
+  # out.dir <- normalizePath(out.dir)
 	if (!any(grepl("_book", dir(out.dir)))) {
 	  stop(paste("Gitbook not found in", out.dir))
-	} else {
-	  browseURL(file.path(out.dir, "_book", "index.html"))
-	  invisible(TRUE)
 	}
+	browseURL(file.path(out.dir, "_book", "index.html"))
+	invisible(TRUE)
 }

@@ -4,10 +4,11 @@
 \alias{openGitbook}
 \title{Open a built gitbook.}
 \usage{
-openGitbook(out.dir = file.path(getwd(), "_book"))
+openGitbook(out.dir = getwd())
 }
 \arguments{
-\item{out.dir}{location of the built gitbook.}
+\item{out.dir}{location of the built gitbook.  The function will open
+"_book/index.html" in a web browser.}
 }
 \description{
 This function is a wrapper to the system call of \code{open} which should
