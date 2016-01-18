@@ -13,44 +13,35 @@
 #' @param ... other parameters passed to \code{\link{buildRmd}}.
 #' @export
 buildGitbook <- function(source.dir = getwd(),
-						 out.dir = paste0(getwd(), '/_book'),
+						 out.dir = paste0(getwd(), "/_book"),
 						 buildRmd = TRUE,
 						 format,
 						 gitbook.params, ...) {
 	if (buildRmd) {
-		message('Building R markdown files...')
+		message("Building R markdown files...")
 		buildRmd(source.dir, ...)
-		message('R Markdown files successfully built!')
+		message("R Markdown files successfully built!")
 	}
 
-	checkForGitbook(quiet=TRUE)
-
-	buildCmd <- 'build'
+	buildCmd <- "build"
 	if (!missing(format)) { buildCmd <- format }
-	cmd <- paste0("gitbook ", buildCmd, " ", source.dir, " --output=", out.dir)
-	#if(!missing(title)) { cmd <- paste0(cmd, ' --title="', title, '"') }
-	#if(!missing(intro)) { cmd <- paste0(cmd, ' --intro="', intro, '"') }
-	#if(!missing(github)) { cmd <- paste0(cmd, ' --github=', github) }
-	#if (mathjax) { cmd <- paste0(cmd, " --plugins plugin-mathjax") }
-	if (!missing(gitbook.params)) { cmd <- paste0(cmd, " ", gitbook.params)}
+	cmd <- paste("gitbook", buildCmd, source.dir, paste0("--output=", out.dir))
+	if (!missing(gitbook.params)) { cmd <- paste(cmd, gitbook.params)}
+	message(cmd)
 	system(cmd)
 
-	# Post-process hack to fix broken img urls.
-	# https://github.com/GitbookIO/gitbook/issues/99
-	# Will also fix links to the Introduction
-	# https://github.com/GitbookIO/gitbook/issues/113
-	#dirs <- list.dirs(out.dir, recursive=FALSE, full.names=FALSE)
-	#for(i in seq_along(dirs)) {
-		files <- list.files(out.dir, '*.html', recursive=TRUE)
+	  # Post-process hack to fix broken img urls.
+	  # https://github.com/GitbookIO/gitbook/issues/99
+	  # Will also fix links to the Introduction
+	  # https://github.com/GitbookIO/gitbook/issues/113
+		files <- list.files(out.dir, "*.html", recursive=TRUE)
 		for (j in seq_along(files)) {
-			fconn <- file(paste0(out.dir, '/', files[j]))
+			fconn <- file(paste0(out.dir, "/", files[j]))
 			file <- readLines(fconn)
 			close(fconn)
-			#file <- gsub(paste0(dirs[i], '/', dirs[i], '/'), '', file)
 			file <- gsub('./">', './index.html">', file)
-			fconn <- file(paste0(out.dir, '/', files[j]))
+			fconn <- file(paste0(out.dir, "/", files[j]))
 			writeLines(file, fconn)
 			close(fconn)
 		}
-	#}
 }
