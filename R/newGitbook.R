@@ -19,11 +19,11 @@ newGitbook <- function(dir, example_sections = TRUE) {
 	}
 
 	message('Writing .bookignore...')
-	bookignore <- system.file("templates", ".bookignore", package = "Rgitbook")
+	bookignore <- system.file("templates", "bookignore", package = "Rgitbook")
 	file.copy(bookignore, file.path(dir, '.bookignore'))
 
 	message('Writing .gitignore...')
-	bookignore <- system.file("templates", ".gitignore", package = "Rgitbook")
+	bookignore <- system.file("templates", "gitignore", package = "Rgitbook")
 	file.copy(bookignore, file.path(dir, '.gitignore'))
 
 	message('Writing README.md...')
