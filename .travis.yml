@@ -17,12 +17,15 @@ addons:
     - r-base-dev
     - r-recommended
     - pandoc
+    - nodejs
+    - npm
 # cache local R libraries directory:
 cache:
   directories:
     - ~/Rlib
 # install the package and dependencies:
 install:
+  - npm install gitbook-cli -g
   - mkdir -p ~/Rlib
   - echo 'R_LIBS=~/Rlib' > .Renviron
   - echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
@@ -31,6 +34,7 @@ install:
   - Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("covr", dependencies = TRUE) }'
   - Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
   - Rscript -e 'devtools::install_deps(pkg = ".", dependencies = TRUE)'
+
 # Build and check package
 script:
   - R CMD build . --no-build-vignettes --no-manual
