@@ -1,5 +1,5 @@
 # Gitbook Projects with R Markdown
-[![Travis](https://img.shields.io/travis/sboysel/Rgitbook.svg?style=flat-square)](https://github.com/sboysel/Rgitbook)
+[![Travis](https://img.shields.io/travis/sboysel/Rgitbook.svg?style=flat-square)](https://travis-ci.org/sboysel/Rgitbook)
 
 #### Author: Jason Bryer ([jason@bryer.org](mailto:jason@bryer.org))    
 #### Website: [jason.bryer.org/Rgitbook](http://jason.bryer.org/Rgitbook)
