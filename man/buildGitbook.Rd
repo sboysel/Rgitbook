@@ -5,7 +5,7 @@
 \title{This will build a gitbook from the source markdown files.}
 \usage{
 buildGitbook(source.dir = getwd(), out.dir = paste0(getwd(), "/_book"),
-  buildRmd = TRUE, format, mathjax = TRUE, gitbook.params, ...)
+  buildRmd = TRUE, format, gitbook.params, ...)
 }
 \arguments{
 \item{source.dir}{location containing the source files.}

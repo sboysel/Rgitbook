@@ -8,6 +8,8 @@ newGitbook(dir, example_sections = TRUE)
 }
 \arguments{
 \item{dir}{location of the built gitbook.}
+
+\item{example_sections}{If TRUE, sample chapters are created.}
 }
 \description{
 This will initalize a new Gitbook in the given directory. When done, it will

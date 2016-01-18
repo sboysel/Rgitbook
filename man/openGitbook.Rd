@@ -4,7 +4,7 @@
 \alias{openGitbook}
 \title{Open a built gitbook.}
 \usage{
-openGitbook(out.dir = paste0(getwd(), "/_book"))
+openGitbook(out.dir = file.path(getwd(), "_book"))
 }
 \arguments{
 \item{out.dir}{location of the built gitbook.}
